@@ -1,5 +1,7 @@
 import sys
 import timeit
+from datetime import date
+
 import numpy as np
 
 import KnnLb
@@ -66,5 +68,17 @@ for i in range(0, len(test_labels)):
     else:
         fallos = fallos + 1
 
-print("Accuracy: ", aciertos / len(test_labels))
-print("Time execution: ", (stop - start))
+accuracy = aciertos / len(test_labels)
+exec_time = (stop - start)
+print("Accuracy: ", accuracy)
+print("Time execution: ", exec_time)
+
+f_path = '../outputs/' + name + '_KNN_LB_' + str(date.today()) + "_" + \
+         str(time.localtime().tm_hour) + "-" + str(time.localtime().tm_min) + "-" + \
+         str(time.localtime().tm_sec) + ".csv"
+linea = name + ',' + str(accuracy) + ',' + str(window) + ',' + str(D) + ',' + str(V) + ',' + str(exec_time)
+
+with open(f_path, 'w+') as file:
+    file.writelines("name,accuracy,window,D,V,exec_time\n")
+    file.write("%s\n" % linea)
+file.close()
