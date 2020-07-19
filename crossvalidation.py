@@ -16,25 +16,7 @@ trainin_path = sys.argv[3]
 name = sys.argv[2]
 window = float(sys.argv[4])
 V = float(sys.argv[5])
-
-def save_json(folds):
-    f_path = '../outputs/KNN_' + name + '_Folds_' + str(time.localtime().tm_hour) + str(time.localtime().tm_min) + str(
-        time.localtime().tm_sec) + ".csv"
-    data = {'fold_stats': []}
-    for fold in folds:
-        data_stats = folds[fold]._exportJSONstats()
-        data['fold_stats'].append({
-            'name': name,
-            'Fold_' + str(fold): data_stats
-        })
-    with open(f_path, 'w+') as file:
-        file.write(json.dumps(data))
-    file.close()
-    return
-
-
-pass
-
+neighbors = int(sys.argv[6])
 random.seed(1234)
 
 train_file = FileReader.load_data(trainin_path)
@@ -71,7 +53,7 @@ for turn in folds.keys():
     train_dataset, train_labels = np.asarray(train_dataset), np.asarray(train_labels)
     test_dataset, test_labels = np.asarray(test_dataset), np.asarray(test_labels)
     window = 2
-    m = KnnLb.KnnDtw(n_neighbors=1, max_warping_window=window)
+    m = KnnLb.KnnDtw(n_neighbors=neighbors, max_warping_window=window)
     m.fit(train_dataset, train_labels)
     start = timeit.default_timer()
     label, proba = m.predict_lb(test_dataset, test_cache, window, V)
@@ -90,12 +72,12 @@ for turn in folds.keys():
     exec_time = (stop - start)
     print("[ACCURACY]: ", accuracy)
     print("Time execution: ", exec_time)
-    linea = str(turn) + ',' + str(window) + ',' + str(V) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
+    linea = str(turn) + ',' + str(window) + ',' + str(V) + ',' + str(neighbors) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
     resultados.append(linea)
 
 f_path = '../outputs/KNN_' + name + '_Folds_' + str(time.localtime().tm_hour) + str(time.localtime().tm_min) + str(
         time.localtime().tm_sec) + ".csv"
 with open(f_path, 'w+') as file:
-    file.writelines("name,window,V,accuracy,exec_time\n")
+    file.writelines("iterations,window,V,Neighbors,accuracy,exec_time\n")
     file.writelines("%s\n" % linea for linea in resultados)
 file.close()
