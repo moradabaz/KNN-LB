@@ -22,17 +22,6 @@ for dt in var:
     size = len(dt.split('/'))
     datasets.append(str(dt.split('/')[size - 1]))
 
-
-if len(sys.argv) > 1:
-    for i in range(2, len(sys.argv)):
-        options = sys.argv[i].split("=")
-        arg = options[0]
-        value = options[1]
-        if arg == "-window":
-            window = float(value)
-        elif arg == "-v":
-            V = float(value)
-
 current_dir = os.getcwd() + '/..' + '/datasets'
 resultados = list()
 for dt_name in datasets:
@@ -62,7 +51,7 @@ for dt_name in datasets:
             m = KnnLb.KnnDtw(n_neighbors=neighbors, max_warping_window=window)
             m.fit(train_data, train_labels)
             start = timeit.default_timer()
-            label, proba = m.predict_lb(test_data, test_cache, window, V)
+            label, proba = m.predict_lb(test_data, test_cache, window, v)
             stop = timeit.default_timer()
 
             aciertos = 0
@@ -80,7 +69,7 @@ for dt_name in datasets:
             exec_time = round(exec_time, 5)
             print("Accuracy: ", accuracy)
             print("Time execution: ", exec_time)
-            linea = str(window) + ',' + str(V) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
+            linea = str(window) + ',' + str(v) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
             resultados.append(linea)
     f_path = '../outputs/' + name + '_All_KNN_LB_' + str(date.today()) + "_" + \
              str(time.localtime().tm_hour) + "-" + str(time.localtime().tm_min) + "-" + \
