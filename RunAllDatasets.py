@@ -8,12 +8,14 @@ import KnnLb
 from FileReader import FileReader
 from Sequence_stats import SequenceStats
 import time
+import random
 
 
+random.seed(1234)
 window=0
 V=0
 
-d = './datasets'
+d = '../datasets'
 var = [os.path.join(d, o) for o in os.listdir(d)
        if os.path.isdir(os.path.join(d, o))]
 
@@ -33,7 +35,7 @@ if len(sys.argv) > 1:
         elif arg == "-v":
             V = float(value)
 
-current_dir = os.getcwd() + '/datasets'
+current_dir = os.getcwd() + '/..' + '/datasets'
 resultados = list()
 for dt_name in datasets:
     name = dt_name
@@ -57,7 +59,7 @@ for dt_name in datasets:
     test_data = np.array(test_data)
     test_labels = np.array(test_labels)
 
-    m = KnnLb.KnnDtw(n_neighbors=1, max_warping_window=10)
+    m = KnnLb.KnnDtw(n_neighbors=1, max_warping_window=window)
     m.fit(train_data, train_labels)
     start = timeit.default_timer()
     label, proba = m.predict_lb(test_data, test_cache, window, V)
@@ -80,7 +82,7 @@ for dt_name in datasets:
     print("Time execution: ", exec_time)
     linea = name + ',' + str(window) + ',' + str(V) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
     resultados.append(linea)
-f_path = '/outputs/All_KNN_LB_' + str(date.today()) + "_" + \
+f_path = '../outputs/All_KNN_LB_' + str(date.today()) + "_" + \
              str(time.localtime().tm_hour) + "-" + str(time.localtime().tm_min) + "-" + \
              str(time.localtime().tm_sec) + ".csv"
 

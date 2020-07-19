@@ -7,6 +7,7 @@ import KnnLb
 from FileReader import FileReader
 from Sequence_stats import SequenceStats
 import time
+import random
 
 name = ""
 training_path = ""
@@ -14,6 +15,8 @@ testing_path = ""
 window = 0
 D = 0
 V = 0
+
+random.seed(1234)
 
 if len(sys.argv) > 1:
     for i in range(2, len(sys.argv)):

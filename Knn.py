@@ -9,7 +9,7 @@ import numpy as np
 train_path = '/Users/morad/PycharmProjects/KNN-LB/datasets/ItalyPowerDemand/ItalyPowerDemand_TRAIN.arff'
 test_path = '/Users/morad/PycharmProjects/KNN-LB/datasets/ItalyPowerDemand/ItalyPowerDemand_TEST.arff'
 
-d = './datasets'
+d = '../datasets'
 var = [os.path.join(d, o) for o in os.listdir(d)
        if os.path.isdir(os.path.join(d, o))]
 
