@@ -1,12 +1,9 @@
 import sys
 import timeit
-from datetime import date
-
-import numpy as np
-
-import KnnLb
-
 sys.path.append(sys.argv[1])
+from datetime import date
+import numpy as np
+import KnnLb
 from FileReader import FileReader
 from Sequence_stats import SequenceStats
 import time
@@ -56,7 +53,7 @@ test_labels = np.array(test_labels)
 m = KnnLb.KnnDtw(n_neighbors=1, max_warping_window=10)
 m.fit(train_data, train_labels)
 start = timeit.default_timer()
-label, proba = m.predict_lb(test_data, test_cache, window, D, V)
+label, proba = m.predict_lb(test_data, test_cache, window, V)
 stop = timeit.default_timer()
 
 aciertos = 0
@@ -69,16 +66,17 @@ for i in range(0, len(test_labels)):
         fallos = fallos + 1
 
 accuracy = aciertos / len(test_labels)
+accuracy = round(accuracy, 5)
 exec_time = (stop - start)
+exec_time = round(exec_time, 5)
 print("Accuracy: ", accuracy)
 print("Time execution: ", exec_time)
 
 f_path = '../outputs/' + name + '_KNN_LB_' + str(date.today()) + "_" + \
          str(time.localtime().tm_hour) + "-" + str(time.localtime().tm_min) + "-" + \
          str(time.localtime().tm_sec) + ".csv"
-linea = name + ',' + str(accuracy) + ',' + str(window) + ',' + str(D) + ',' + str(V) + ',' + str(exec_time)
-
+linea = name + ',' + str(window) + ',' + str(V) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
 with open(f_path, 'w+') as file:
-    file.writelines("name,accuracy,window,D,V,exec_time\n")
+    file.writelines("name,window,V,accuracy,exec_time\n")
     file.write("%s\n" % linea)
 file.close()

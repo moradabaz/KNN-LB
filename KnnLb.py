@@ -151,7 +151,7 @@ class KnnDtw(object):
                     dm_count += 1
             return dm
 
-    def _dist_matrix_lb(self, x, y, train_cache, window, D, V):
+    def _dist_matrix_lb(self, x, y, train_cache, window, V):
         """Computes the M x N distance matrix between the training
         dataset and testing dataset (y) using the DTW distance measure
 
@@ -175,16 +175,17 @@ class KnnDtw(object):
         if np.array_equal(x, y):
             x_s = np.shape(x)
             dm = np.zeros((x_s[0] * (x_s[0] - 1)) // 2, dtype=np.double)
-
+            best_distance = np.inf
             for i in xrange(0, x_s[0] - 1):
                 for j in xrange(i + 1, x_s[0]):
                     U = train_cache.upper_envelope[i]
                     L = train_cache.lower_envelope[i]
                     w = window
                     v = V
-                    d = D
                     dm[dm_count] = LBEnhanced.distance(x[i, ::self.subsample_step],
-                                                       y[j, ::self.subsample_step], U, L, w, v, d)
+                                                       y[j, ::self.subsample_step], U, L, w, v, best_distance)
+                    if best_distance > dm[dm_count]:
+                        best_distance = dm[dm_count]
                     dm_count += 1
             # Convert to squareform
             dm = squareform(dm)
@@ -206,12 +207,12 @@ class KnnDtw(object):
                     #v = 4.2
                     #d = 2.4
                     dm[i, j] = LBEnhanced.distance(x[i, ::self.subsample_step],
-                                                   y[j, ::self.subsample_step], U, L, window, V, D)
+                                                   y[j, ::self.subsample_step], U, L, window, V)
                     # Update progress bar
                     dm_count += 1
             return dm
 
-    def predict_lb(self, x, train_cache,  window, D, V):
+    def predict_lb(self, x, train_cache, window, V):
         """Predict the class labels or probability estimates for
         the provided data
 
@@ -227,7 +228,7 @@ class KnnDtw(object):
               (2) the knn label count probability
         """
 
-        dm = self._dist_matrix_lb(x, self.x, train_cache, window, D, V)
+        dm = self._dist_matrix_lb(x, self.x, train_cache, window, V)
 
         # Identify the k nearest neighbors
         knn_idx = dm.argsort()[:, :self.n_neighbors]
