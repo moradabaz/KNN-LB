@@ -32,7 +32,7 @@ if len(sys.argv) > 1:
         elif arg == "-window":
             window = float(value)
         elif arg == "-n":
-            neighbors = int(value)
+            neighbors = float(value)
         elif arg == "-v":
             V = float(value)
 
