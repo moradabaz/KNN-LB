@@ -23,7 +23,7 @@ for dt in var:
     datasets.append(str(dt.split('/')[size - 1]))
 
 current_dir = os.getcwd() + '/..' + '/datasets'
-resultados = list()
+
 for dt_name in datasets:
     name = dt_name
     training_path = current_dir + '/' + str(dt_name) + '/' +  str(dt_name) + '_TRAIN.arff'
@@ -45,7 +45,7 @@ for dt_name in datasets:
     train_labels = np.array(train_labels)
     test_data = np.array(test_data)
     test_labels = np.array(test_labels)
-
+    resultados = list()
     for window in [1, 2, 3, 4, 5]:
         for v in [1, 2, 3, 4, 5, 6]:
             m = KnnLb.KnnDtw(n_neighbors=neighbors, max_warping_window=window)
