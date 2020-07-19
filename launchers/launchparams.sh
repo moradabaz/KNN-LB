@@ -10,7 +10,7 @@ for d in $CUR_DIR/datasets/*; do
       for v in 1 2.2 3.2 4.2 5.2
       do
         echo "Executing dataset [ $dataset ]  ..."
-        python3 ../crossvalidation.py $CUR_DIR $dataset $DATASET_DIR/"$dataset"_TRAIN.arff $window $v 1
+         python3 ../Runner.py $CUR_DIR -name=$dataset -train=$DATASET_DIR/"$dataset"_TRAIN.arff -test=$DATASET_DIR/"$dataset"_TEST.arff -n=1 -window=$window -v=$v
         echo "Classification process [ $dataset ] finished"
       done
     done
