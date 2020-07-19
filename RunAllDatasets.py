@@ -38,7 +38,7 @@ resultados = list()
 for dt_name in datasets:
     name = dt_name
     training_path = current_dir + '/' + str(dt_name) + '/' +  str(dt_name) + '_TRAIN.arff'
-    testing_path = current_dir + '/' + str(dt_name) + '/' +  str(dt_name) + '_TRAIN.arff'
+    testing_path = current_dir + '/' + str(dt_name) + '/' +  str(dt_name) + '_TEST.arff'
 
     # Load data
     train_file = FileReader.load_data(training_path)
@@ -80,7 +80,7 @@ for dt_name in datasets:
     print("Time execution: ", exec_time)
     linea = name + ',' + str(window) + ',' + str(V) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
     resultados.append(linea)
-f_path = '../outputs/All_KNN_LB_' + str(date.today()) + "_" + \
+f_path = '/outputs/All_KNN_LB_' + str(date.today()) + "_" + \
              str(time.localtime().tm_hour) + "-" + str(time.localtime().tm_min) + "-" + \
              str(time.localtime().tm_sec) + ".csv"
 
