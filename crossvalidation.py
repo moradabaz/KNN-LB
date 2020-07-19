@@ -4,11 +4,8 @@ import time
 import random
 import timeit
 import numpy as np
-from scipy.io import arff
-
-from Sequence_stats import SequenceStats
-
 sys.path.append(sys.argv[1])
+from Sequence_stats import SequenceStats
 import KnnLb
 from FileReader import FileReader
 
