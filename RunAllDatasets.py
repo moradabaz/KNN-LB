@@ -22,8 +22,9 @@ for dt in var:
     size = len(dt.split('/'))
     datasets.append(str(dt.split('/')[size - 1]))
 
+#current_dir = os.getcwd() + '/..' + '/datasets'
 current_dir = os.getcwd() + '/..' + '/datasets'
-
+datasets = {"ItalyPowerDemand", "Chinatown", "ERing", "FacesUCR"}
 for dt_name in datasets:
     name = dt_name
     training_path = current_dir + '/' + str(dt_name) + '/' +  str(dt_name) + '_TRAIN.arff'
