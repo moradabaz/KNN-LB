@@ -9,6 +9,10 @@ from FileReader import FileReader
 from Sequence_stats import SequenceStats
 import time
 
+
+window=0
+V=0
+
 d = './datasets'
 var = [os.path.join(d, o) for o in os.listdir(d)
        if os.path.isdir(os.path.join(d, o))]
