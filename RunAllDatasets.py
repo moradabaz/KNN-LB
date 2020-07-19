@@ -24,7 +24,7 @@ for dt in var:
 
 #current_dir = os.getcwd() + '/..' + '/datasets'
 current_dir = os.getcwd() + '/..' + '/datasets'
-datasets = {"ItalyPowerDemand", "Chinatown", "ERing", "FacesUCR"}
+#datasets = {"ItalyPowerDemand", "Chinatown", "ERing", "FacesUCR"}
 for dt_name in datasets:
     name = dt_name
     training_path = current_dir + '/' + str(dt_name) + '/' +  str(dt_name) + '_TRAIN.arff'
@@ -77,6 +77,6 @@ for dt_name in datasets:
              str(time.localtime().tm_sec) + ".csv"
 
     with open(f_path, 'w+') as file:
-        file.writelines("name,window,V,accuracy,exec_time\n")
+        file.writelines("window,V,accuracy,exec_time\n")
         file.writelines("%s\n" % linea for linea in resultados)
     file.close()
