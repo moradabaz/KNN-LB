@@ -12,7 +12,7 @@ import random
 
 
 random.seed(1234)
-neighbors=int(sys.argv[2])
+# neighbors=int(sys.argv[2])
 d = '../datasets'
 var = [os.path.join(d, o) for o in os.listdir(d)
        if os.path.isdir(os.path.join(d, o))]
@@ -48,35 +48,36 @@ for dt_name in datasets:
     test_labels = np.array(test_labels)
     resultados = list()
     window = 0.75
-    for v in [7, 8, 9, 10, 11, 12, 13 , 14 , 15, 16, 17, 18, 19, 20]:
-        m = KnnLb.KnnDtw(n_neighbors=neighbors, max_warping_window=window)
-        m.fit(train_data, train_labels)
-        start = timeit.default_timer()
-        label, proba = m.predict_lb(test_data, test_cache, window, v)
-        stop = timeit.default_timer()
+    for neighbors in range(1, 11):
+        for v in [1, 3, 5, 7, 9, 11, 13, 15, 17, 20]:
+            m = KnnLb.KnnDtw(n_neighbors=neighbors, max_warping_window=window)
+            m.fit(train_data, train_labels)
+            start = timeit.default_timer()
+            label, proba = m.predict_lb(test_data, test_cache, window, v)
+            stop = timeit.default_timer()
 
-        aciertos = 0
-        fallos = 0
-        tam_labels = len(test_labels)
-        for i in range(0, len(test_labels)):
-            if label[i] == test_labels[i]:
-                aciertos = aciertos + 1
-            else:
-                fallos = fallos + 1
+            aciertos = 0
+            fallos = 0
+            tam_labels = len(test_labels)
+            for i in range(0, len(test_labels)):
+                if label[i] == test_labels[i]:
+                    aciertos = aciertos + 1
+                else:
+                    fallos = fallos + 1
 
-        accuracy = aciertos / len(test_labels)
-        accuracy = round(accuracy, 5)
-        exec_time = (stop - start)
-        exec_time = round(exec_time, 5)
-        print("Accuracy: ", accuracy)
-        print("Time execution: ", exec_time)
-        linea = str(window) + ',' + str(v) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
-        resultados.append(linea)
+            accuracy = aciertos / len(test_labels)
+            accuracy = round(accuracy, 5)
+            exec_time = (stop - start)
+            exec_time = round(exec_time, 5)
+            print("Accuracy: ", accuracy)
+            print("Time execution: ", exec_time)
+            linea = str(window) + ',' + ',' + str(neighbors) + ',' + str(v) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
+            resultados.append(linea)
     f_path = '../outputs/' + name + '_KNN_LB_' + str(date.today()) + "_" + \
              str(time.localtime().tm_hour) + "-" + str(time.localtime().tm_min) + "-" + \
              str(time.localtime().tm_sec) + ".csv"
 
     with open(f_path, 'w+') as file:
-        file.writelines("window,V,accuracy,exec_time\n")
+        file.writelines("window,Neighbours,V,accuracy,exec_time\n")
         file.writelines("%s\n" % linea for linea in resultados)
     file.close()
