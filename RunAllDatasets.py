@@ -47,8 +47,8 @@ for dt_name in datasets:
     test_data = np.array(test_data)
     test_labels = np.array(test_labels)
     resultados = list()
-    for window in [1, 2, 3, 4, 5]:
-        for v in [1, 2, 3, 4, 5, 6]:
+    for window in [0.25, 0.5, 0.75, 1, 1.25, 1.5]:
+        for v in [1, 2, 3, 4, 5, 6, 7]:
             m = KnnLb.KnnDtw(n_neighbors=neighbors, max_warping_window=window)
             m.fit(train_data, train_labels)
             start = timeit.default_timer()
@@ -72,7 +72,7 @@ for dt_name in datasets:
             print("Time execution: ", exec_time)
             linea = str(window) + ',' + str(v) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
             resultados.append(linea)
-    f_path = '../outputs/' + name + '_All_KNN_LB_' + str(date.today()) + "_" + \
+    f_path = '../outputs/' + name + '_KNN_LB_' + str(date.today()) + "_" + \
              str(time.localtime().tm_hour) + "-" + str(time.localtime().tm_min) + "-" + \
              str(time.localtime().tm_sec) + ".csv"
 
