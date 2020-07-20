@@ -48,7 +48,7 @@ for dt_name in datasets:
     test_labels = np.array(test_labels)
     resultados = list()
     window = 0.75
-    for v in [7, 8, 9, 10]:
+    for v in [7, 8, 9, 10, 11, 12]:
         m = KnnLb.KnnDtw(n_neighbors=neighbors, max_warping_window=window)
         m.fit(train_data, train_labels)
         start = timeit.default_timer()
