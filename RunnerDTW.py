@@ -75,11 +75,9 @@ exec_time = round(exec_time, 5)
 print("Accuracy: ", accuracy)
 print("Time execution: ", exec_time)
 
-f_path = '../outputs/' + name + '_KNN_LB_' + str(date.today()) + "_" + \
-         str(time.localtime().tm_hour) + "-" + str(time.localtime().tm_min) + "-" + \
-         str(time.localtime().tm_sec) + ".csv"
-linea = name + ',' + str(window) + ',' + str(V) + ',' + str(neighbors) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
+f_path = '../outputs/' + name + '_KNN_DTW' + ".csv"
+linea = name + ',' + str(window) + ',' + str(neighbors) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
 with open(f_path, 'w+') as file:
-    file.writelines("name,window,V,Neighbors,accuracy,exec_time\n")
+    file.writelines("name,window,Neighbors,accuracy,exec_time\n")
     file.write("%s\n" % linea)
 file.close()
