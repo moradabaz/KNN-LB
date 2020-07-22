@@ -9,6 +9,7 @@ from numpy.core.tests.test_mem_overlap import xrange
 from scipy.stats import mode
 from scipy.spatial.distance import squareform
 from LbEnhanced import LBEnhanced
+import dtaidistance.dtw
 
 plt.style.use('bmh')
 
