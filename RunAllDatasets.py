@@ -41,14 +41,14 @@ for dt_name in datasets:
 
     train_cache = SequenceStats(train_data)
     test_cache = SequenceStats(test_data)
-
+    L = round((train_data[0]) / 2)
     train_data = np.array(train_data)
     train_labels = np.array(train_labels)
     test_data = np.array(test_data)
     test_labels = np.array(test_labels)
     resultados = list()
     window = 1
-    L = round((train_data[0])/2)
+
     v = round(L/2)
     chunk = round(L / v)
     while v < L:
