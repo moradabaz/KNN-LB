@@ -41,7 +41,7 @@ for dt_name in datasets:
 
     train_cache = SequenceStats(train_data)
     test_cache = SequenceStats(test_data)
-    L = round((train_data[0]) / 2)
+    L = round(len(train_data[0]) / 2)
     train_data = np.array(train_data)
     train_labels = np.array(train_labels)
     test_data = np.array(test_data)
@@ -51,12 +51,12 @@ for dt_name in datasets:
 
     v = round(L/2)
     chunk = round(L / v)
-    while v < L:
+    for window in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
  #   for v in [7, 8, 9, 10, 11, 12, 13 , 14 , 15, 16, 17, 18, 19, 20]:
         m = KnnLb.KnnDtw(n_neighbors=neighbors, max_warping_window=window)
         m.fit(train_data, train_labels)
         start = timeit.default_timer()
-        label, proba = m.predict_lb(test_data, test_cache, window, v)
+        label, proba = m.predict_lb(test_data, test_cache, window, 5)
         stop = timeit.default_timer()
 
         aciertos = 0
@@ -77,9 +77,7 @@ for dt_name in datasets:
         linea = str(window) + ',' + str(v) + ',' + str(round(accuracy, 5)) + ',' + str(round(exec_time, 5))
         resultados.append(linea)
         v = v + chunk
-    f_path = '../outputs/' + name + '_KNN_LB_' + str(date.today()) + "_" + \
-             str(time.localtime().tm_hour) + "-" + str(time.localtime().tm_min) + "-" + \
-             str(time.localtime().tm_sec) + ".csv"
+    f_path = '../outputs/' + name + '_KNN_LB' + ".csv"
 
     with open(f_path, 'w+') as file:
         file.writelines("window,V,accuracy,exec_time\n")

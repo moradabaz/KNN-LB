@@ -42,7 +42,8 @@ class LBEnhanced:
             i = i + 1
         if cutoffvalue is not None:
             if res >= cutoffvalue:
-                return dtw.distance_fast(A, B)
+                return dtw.lb_keogh(A, B, window=W)
+                #return dtw.distance_fast(A, B)
 
         i = int(n_bands)
         while i <= last_index:
