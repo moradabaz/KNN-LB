@@ -6,6 +6,7 @@ import numpy as np
 import time
 import Sequence_stats
 from   FileReader import FileReader
+import pandas as pd
 
 # Import the HAR dataset
 train_file = FileReader.load_data('/Users/morad/PycharmProjects/KNN-LB/datasets/ItalyPowerDemand'
@@ -24,7 +25,7 @@ train_data = np.array(train_data)
 train_labels = np.array(train_labels)
 test_data = np.array(test_data)
 test_labels = np.array(test_labels)
-
+#train_data.data
 m = KnnLb.KnnDtw(n_neighbors=1, max_warping_window=10)
 m.fit(train_data, train_labels)
 label, proba = m.predict_lb(test_data, test_cache)
