@@ -1,0 +1,7 @@
+#!/bin/bash
+CUR_DIR=$(cd .. && pwd)
+DATASET_DIR=$CUR_DIR/datasets/$1
+echo ""
+echo "Executing dataset [ $dataset ]  ..."
+python3 ../crossvalidation.py $CUR_DIR $1 $DATASET_DIR/"$1"_TRAIN.arff
+echo "Classification process [ $dataset ] finished"

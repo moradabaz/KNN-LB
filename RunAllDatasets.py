@@ -51,8 +51,7 @@ for dt_name in datasets:
 
     v = round(L/2)
     chunk = round(L / v)
-    for window in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
- #   for v in [7, 8, 9, 10, 11, 12, 13 , 14 , 15, 16, 17, 18, 19, 20]:
+    for window in [6, 7, 8, 9, 10]:
         m = KnnLb.KnnDtw(n_neighbors=neighbors, max_warping_window=window)
         m.fit(train_data, train_labels)
         start = timeit.default_timer()
