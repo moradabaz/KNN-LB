@@ -6,7 +6,7 @@ Check out the original implementation, developed by the authors of this new lowe
 
 What we did is to implement the LbEnhanced measure in Python, based on the implementation made by the authors in Java. Then we integrated the distance measure into a KNN technique. The KNN original implementation is here: https://github.com/markdregan/K-Nearest-Neighbors-with-Dynamic-Time-Warping.git
 
-
+I also want to thank @markdregan for providing this kNN source and I recommend to check his profile https://github.com/markdregan , he's got interesting ML projects :)
 
 
 
